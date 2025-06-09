@@ -8,7 +8,7 @@ import Icon from "../Icon";
 import VisuallyHidden from "../VisuallyHidden";
 
 const MobileMenu = ({ isOpen, onDismiss }) => {
-  const navItems = [
+  const NAV_ITEMS = [
     { href: "/sale", text: "Sale" },
     { href: "/new", text: "New Releases" },
     { href: "/men", text: "Men" },
@@ -36,7 +36,7 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
             <Filler />
 
             <Nav>
-              {navItems.map((nav, index) => (
+              {NAV_ITEMS.map((nav, index) => (
                 <NavLink
                   key={nav.href}
                   href={nav.href}
@@ -92,7 +92,7 @@ const Overlay = styled(Dialog.Overlay)`
   position: fixed;
   inset: 0;
   background: var(--color-backdrop);
-  animation: ${fadeIn} 300ms ease-out;
+  animation: ${fadeIn} 500ms ease-out;
 `;
 
 const Content = styled(Dialog.Content)`
