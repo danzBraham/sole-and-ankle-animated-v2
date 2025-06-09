@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import { QUERIES, WEIGHTS } from '../../constants';
-import Logo from '../Logo';
-import Icon from '../Icon';
-import UnstyledButton from '../UnstyledButton';
-import SuperHeader from '../SuperHeader';
-import MobileMenu from '../MobileMenu';
-import VisuallyHidden from '../VisuallyHidden';
+import { QUERIES, WEIGHTS } from "../../constants";
+import Logo from "../Logo";
+import Icon from "../Icon";
+import UnstyledButton from "../UnstyledButton";
+import SuperHeader from "../SuperHeader";
+import MobileMenu from "../MobileMenu";
+import VisuallyHidden from "../VisuallyHidden";
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
@@ -20,12 +20,30 @@ const Header = () => {
           <Logo />
         </LogoWrapper>
         <DesktopNav>
-          <NavLink href="/sale">Sale</NavLink>
-          <NavLink href="/new">New&nbsp;Releases</NavLink>
-          <NavLink href="/men">Men</NavLink>
-          <NavLink href="/women">Women</NavLink>
-          <NavLink href="/kids">Kids</NavLink>
-          <NavLink href="/collections">Collections</NavLink>
+          <NavLink href="/sale">
+            <NormalText>Sale</NormalText>
+            <BoldText>Sale</BoldText>
+          </NavLink>
+          <NavLink href="/new">
+            <NormalText>New&nbsp;Releases</NormalText>
+            <BoldText>New&nbsp;Releases</BoldText>
+          </NavLink>
+          <NavLink href="/men">
+            <NormalText>Men</NormalText>
+            <BoldText>Men</BoldText>
+          </NavLink>
+          <NavLink href="/women">
+            <NormalText>Women</NormalText>
+            <BoldText>Women</BoldText>
+          </NavLink>
+          <NavLink href="/kids">
+            <NormalText>Kids</NormalText>
+            <BoldText>Kids</BoldText>
+          </NavLink>
+          <NavLink href="/collections">
+            <NormalText>Collections</NormalText>
+            <BoldText>Collections</BoldText>
+          </NavLink>
         </DesktopNav>
         <MobileActions>
           <ShoppingBagButton>
@@ -44,10 +62,7 @@ const Header = () => {
         <Filler />
       </MainHeader>
 
-      <MobileMenu
-        isOpen={showMobileMenu}
-        onDismiss={() => setShowMobileMenu(false)}
-      />
+      <MobileMenu isOpen={showMobileMenu} onDismiss={() => setShowMobileMenu(false)} />
     </header>
   );
 };
@@ -115,15 +130,40 @@ const Filler = styled.div`
 `;
 
 const NavLink = styled.a`
+  position: relative;
   font-size: 1.125rem;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--color-gray-900);
   font-weight: ${WEIGHTS.medium};
+  overflow: hidden;
 
   &:first-of-type {
     color: var(--color-secondary);
   }
+
+  &:hover span:first-of-type {
+    transform: translateY(-200%);
+  }
+
+  &:hover span:last-of-type {
+    transform: translateY(-100%);
+  }
+`;
+
+const NormalText = styled.span`
+  display: block;
+  transform: translateY(0);
+  transition: transform 300ms;
+  transition-timing-function: ease-out;
+`;
+
+const BoldText = styled.span`
+  position: absolute;
+  display: block;
+  font-weight: ${WEIGHTS.bold};
+  transform: translateY(100%);
+  transition: transform 300ms;
 `;
 
 export default Header;
