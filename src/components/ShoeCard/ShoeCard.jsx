@@ -70,14 +70,16 @@ const Image = styled.img`
   display: block;
   width: 100%;
   transform-origin: 50% 75%;
-  transition: transform 600ms;
+  filter: brightness(95%);
+  transition: transform 600ms, filter 800ms;
   will-change: transform;
 
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
     ${Link}:hover &,
     ${Link}:focus & {
       transform: scale(1.1);
-      transition: transform 200ms;
+      filter: brightness(100%);
+      transition: transform 200ms, filter 400ms;
     }
   }
 `;
