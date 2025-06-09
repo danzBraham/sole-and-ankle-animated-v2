@@ -11,6 +11,14 @@ import VisuallyHidden from "../VisuallyHidden";
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
+  const NAV_LINKS = [
+    { href: "/sale", label: "Sale" },
+    { href: "/new", label: "New Releases" },
+    { href: "/men", label: "Men" },
+    { href: "/women", label: "Women" },
+    { href: "/kids", label: "Kids" },
+    { href: "/collections", label: "Collections" },
+  ];
 
   return (
     <header>
@@ -20,30 +28,12 @@ const Header = () => {
           <Logo />
         </LogoWrapper>
         <DesktopNav>
-          <NavLink href="/sale">
-            <NormalText>Sale</NormalText>
-            <BoldText>Sale</BoldText>
-          </NavLink>
-          <NavLink href="/new">
-            <NormalText>New&nbsp;Releases</NormalText>
-            <BoldText>New&nbsp;Releases</BoldText>
-          </NavLink>
-          <NavLink href="/men">
-            <NormalText>Men</NormalText>
-            <BoldText>Men</BoldText>
-          </NavLink>
-          <NavLink href="/women">
-            <NormalText>Women</NormalText>
-            <BoldText>Women</BoldText>
-          </NavLink>
-          <NavLink href="/kids">
-            <NormalText>Kids</NormalText>
-            <BoldText>Kids</BoldText>
-          </NavLink>
-          <NavLink href="/collections">
-            <NormalText>Collections</NormalText>
-            <BoldText>Collections</BoldText>
-          </NavLink>
+          {NAV_LINKS.map(({ href, label }) => (
+            <NavLink key={href} href={href}>
+              <NormalText>{label}</NormalText>
+              <BoldText aria-hidden={true}>{label}</BoldText>
+            </NavLink>
+          ))}
         </DesktopNav>
         <MobileActions>
           <ShoppingBagButton>
@@ -141,29 +131,33 @@ const NavLink = styled.a`
   &:first-of-type {
     color: var(--color-secondary);
   }
-
-  &:hover span:first-of-type {
-    transform: translateY(-200%);
-  }
-
-  &:hover span:last-of-type {
-    transform: translateY(-100%);
-  }
 `;
 
-const NormalText = styled.span`
+const NavLinkText = styled.span`
   display: block;
-  transform: translateY(0);
-  transition: transform 300ms;
-  transition-timing-function: ease-out;
+  transform: translateY(var(--translate-from));
+  transition: transform 500ms;
+
+  @media (prefers-reduced-motion: no-preference) {
+    ${NavLink}:hover & {
+      transform: translateY(var(--translate-to));
+      transition: transform 250ms;
+    }
+  }
 `;
 
-const BoldText = styled.span`
+const NormalText = styled(NavLinkText)`
+  --translate-from: 0%;
+  --translate-to: -100%;
+`;
+
+const BoldText = styled(NavLinkText)`
+  --translate-from: 100%;
+  --translate-to: 0%;
   position: absolute;
-  display: block;
+  top: 0;
+  left: 0;
   font-weight: ${WEIGHTS.bold};
-  transform: translateY(100%);
-  transition: transform 300ms;
 `;
 
 export default Header;
